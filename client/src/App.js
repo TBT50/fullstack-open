@@ -1,59 +1,50 @@
 import "./App.css";
 import React, { useState } from "react";
 
-import Course from "./components/Course";
+import Note from "./components/Note";
 
-const App = () => {
-  const courses = [
-    {
-      id: 1,
-      name: "Half Stack application development",
-      parts: [
-        {
-          name: "Fundamentals of React",
-          exercises: 10,
-          id: 1,
-        },
-        {
-          name: "Using props to pass data",
-          exercises: 7,
-          id: 2,
-        },
-        {
-          name: "State of a component",
-          exercises: 14,
-          id: 3,
-        },
-        {
-          name: "Redux",
-          exercises: 10,
-          id: 4,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Backend programming",
-      parts: [
-        {
-          name: "Fundamentals of Node",
-          exercises: 13,
-          id: 1,
-        },
-        {
-          name: "Fundamentals of Express",
-          exercises: 10,
-          id: 2,
-        },
-      ],
-    },
-  ];
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes);
+  const [newNote, setNewNote] = useState("");
+  const [showAll, setShowAll] = useState(true);
+
+  const addNote = (event) => {
+    event.preventDefault();
+    const noteObject = {
+      id: notes.length + 1,
+      content: newNote,
+      date: new Date().toISOString(),
+      important: true,
+    };
+    setNotes([...notes, noteObject]);
+    setNewNote("");
+  };
+
+  const handleNoteChange = (event) => {
+    setNewNote(event.target.value);
+  };
+
+  const showAllNotes = () => {
+    setShowAll(!showAll);
+  };
+
+  const notesToShow = showAll
+    ? notes
+    : notes.filter((note) => note.important === true);
+
   return (
     <>
-      <h1>Fullstack Open</h1>
-      {courses.map((course) => (
-        <Course key={course.id} course={course} />
+      <h1>Notes App</h1>
+      <form onSubmit={addNote}>
+        <input type="text" value={newNote} onChange={handleNoteChange} />
+        <button type="submit">Add note</button>
+      </form>
+      {notesToShow.map((note) => (
+        <Note key={note.id} note={note} />
       ))}
+      <button type="button" onClick={showAllNotes}>
+        show {showAll ? "important" : "all"}
+      </button>
     </>
   );
 };
