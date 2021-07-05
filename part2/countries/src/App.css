@@ -1,0 +1,35 @@
+body {
+  color: #416a59;
+  background-color: #f5eec2;
+  padding: 15px;
+}
+
+.country__flag {
+  max-width: 200px;
+}
+
+.searchFilter__label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.searchFilter__input {
+  height: 30px;
+  padding: 5px;
+}
+
+.countryList__item {
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.countryList__btn {
+  margin-left: 15px;
+  background-color: #416a59;
+  border-radius: 3px;
+  border: 0;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+}
